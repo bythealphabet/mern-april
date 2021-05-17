@@ -19,6 +19,18 @@ const UserSchema = new mongoose.Schema(
       data: String,
       default: "",
     },
+    about: {
+      type: String,
+      trim: true,
+    },
+    photo: {
+      type: String,
+      trim: true,
+    },
+    role: {
+      type: String,
+      default: "seller",
+    },
     isVerified: { type: Boolean, default: false },
     hashed_password: {
       type: String,

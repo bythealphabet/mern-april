@@ -19,23 +19,15 @@ if (development) {
 	devBundle.compile(app);
 }
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true })); //<-----------Need to Read About this part of EXPRESS
+app.use(express.json()); //<-----------Need to Read About this part of EXPRESS
 app.use(compress());
 app.use(cookieParser());
-
-app.use(helmet());
-
-if (development) {
-	console.log("development mode helmet:");
-	app.use(
-		helmet.contentSecurityPolicy({
-			directives: {
-				defaultSrc: ["'self'"],
-				scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
-			},
-		})
-	);
-}
+app.use(
+	helmet({
+		contentSecurityPolicy: false,
+	})
+);
 
 app.use(cors());
 
@@ -47,7 +39,7 @@ app.use("/", authRoutes);
 
 app.get("*", (req, res) => {
 	if (req.url === "/__webpack_hmr") return;
-	res.status(200).send(template());
+	res.status(200).send(template(development));
 });
 
 app.use((err, req, res, next) => {

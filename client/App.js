@@ -1,8 +1,10 @@
 import React from "react";
 import { hot } from "react-hot-loader/root";
+import { BrowserRouter as Router } from "react-router-dom";
+import MainRouter from "./MainRouter";
 
 function App(props) {
-	return <div>App this add great that it works just like I want to</div>;
+	return <Router><MainRouter /></Router>;
 }
 
 export default hot(App);
